@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="lim_bgreen">#356859</color>
+    <color name="lim_bgreen_w">#37966F</color>
+    <color name="lim_bgreen_ww">#37966F</color>
+    <color name="lim_orange">#FD5523</color>
+    <color name="lim_back_w">#FEFAE8</color>
+    <color name="lim_back">#FFFBE6</color>
+    <color name="lim_back_d">#ECE9D5</color>
+    <color name="lim_back_dd">#E8E4C7</color>
+    <color name="lim_gray">#E5E5E5</color>
+    <color name="lim_gray_d">#808080</color>
+    <color name="lim_gray_dd">#43423D</color>
+    <color name="lim_text_black">#43423D</color>
+</resources>

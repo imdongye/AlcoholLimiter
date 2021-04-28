@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_realtime"
+        android:icon="@drawable/bg_round_rectangle"
+        android:title="realtime"
+        android:enabled="true" />
+    <item
+        android:id="@+id/bottom_callendar"
+        android:icon="@drawable/bg_round_rectangle"
+        android:title="callendar"
+        android:enabled="true" />
+    <item
+        android:id="@+id/bottom_setting"
+        android:icon="@drawable/bg_round_rectangle"
+        android:title="setting"
+        android:enabled="true" />
+</menu>
