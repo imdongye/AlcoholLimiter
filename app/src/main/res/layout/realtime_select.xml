@@ -41,7 +41,7 @@
                 app:layout_constraintVertical_bias="0.74">
 
                 <ImageButton
-                    android:id="@+id/select_soju"
+                    android:id="@+id/select_1_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="10dp"
@@ -51,7 +51,7 @@
                     android:src="@drawable/img_soju_bottle"
                     android:padding="7dp"/>
                 <ImageButton
-                    android:id="@+id/select_beer"
+                    android:id="@+id/select_2_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="10dp"
@@ -61,7 +61,7 @@
                     android:src="@drawable/img_beer_bottle"
                     android:padding="7dp"/>
                 <ImageButton
-                    android:id="@+id/select_mak"
+                    android:id="@+id/select_3_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="10dp"
@@ -71,7 +71,7 @@
                     android:src="@drawable/img_mak_bottle"
                     android:padding="7dp"/>
                 <ImageButton
-                    android:id="@+id/selct_more"
+                    android:id="@+id/select_more_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="10dp"

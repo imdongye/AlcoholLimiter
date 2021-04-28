@@ -18,7 +18,7 @@
 
 
             <TextView
-                android:id="@+id/main_type_name"
+                android:id="@+id/main_type_text"
                 android:layout_width="100dp"
                 android:layout_height="41dp"
                 android:autoSizeTextType="uniform"
@@ -45,7 +45,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.058"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_type_name"
+                app:layout_constraintTop_toBottomOf="@+id/main_type_text"
                 app:layout_constraintVertical_bias="0.156" />
 
             <LinearLayout
@@ -61,7 +61,7 @@
                 app:layout_constraintVertical_bias="0.2">
 
                 <EditText
-                    android:id="@+id/main_edit_alcohol"
+                    android:id="@+id/main_alcohol_edit"
                     android:layout_width="59dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -95,7 +95,7 @@
                 app:layout_constraintVertical_bias="0.1">
 
                 <EditText
-                    android:id="@+id/main_edit_bottle_ml"
+                    android:id="@+id/main_bottle_ml_edit"
                     android:layout_width="59dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -158,7 +158,7 @@
                 android:focusableInTouchMode="true">
 
                 <EditText
-                    android:id="@+id/main_total_ml"
+                    android:id="@+id/main_total_ml_edit"
                     android:layout_width="60dp"
                     android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
@@ -196,17 +196,18 @@
                 app:layout_constraintVertical_bias="0.023" />
 
             <Button
+                android:id="@+id/main_total_edit_btn"
                 android:layout_width="50dp"
                 android:layout_height="21dp"
                 android:background="@drawable/bg_border_cylinder_ripple"
                 android:fontFamily="@font/binggraesamanco"
                 android:text="edit"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/roundedDashView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.82"
+                app:layout_constraintHorizontal_bias="0.627"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout2"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.061" />
+                app:layout_constraintVertical_bias="0.253" />
 
             <com.example.alcohollimiter.RoundedDashView
                 android:id="@+id/roundedDashView"
@@ -220,7 +221,7 @@
                 app:layout_constraintVertical_bias="0.305" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/main_drink_btn"
                 android:layout_width="85dp"
                 android:layout_height="134dp"
                 android:background="@drawable/bg_border_cylinder_ripple"
@@ -251,7 +252,7 @@
                 app:layout_constraintVertical_bias="0.071" />
 
             <TextView
-                android:id="@+id/main_text_jan"
+                android:id="@+id/main_jan_ml_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamanco"
@@ -259,14 +260,14 @@
                 android:textColor="@color/lim_text_black"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/main_drink_btn"
                 app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintStart_toEndOf="@+id/roundedDashView_vertical"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 app:layout_constraintVertical_bias="0.051" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/main_jan_edit_btn"
                 android:layout_width="50dp"
                 android:layout_height="21dp"
                 android:background="@drawable/bg_border_cylinder_ripple"
@@ -275,11 +276,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.304"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintStart_toEndOf="@+id/main_drink_btn"
                 app:layout_constraintTop_toBottomOf="@+id/roundedDashView"
                 app:layout_constraintVertical_bias="0.07" />
 
             <Button
+                android:id="@+id/main_jan_plus_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_border_circle_ripple"
@@ -289,23 +291,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.475"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintStart_toEndOf="@+id/main_drink_btn"
                 app:layout_constraintTop_toBottomOf="@+id/roundedDashView"
                 app:layout_constraintVertical_bias="0.562" />
 
             <Button
+                android:id="@+id/main_jan_min_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginBottom="64dp"
                 android:background="@drawable/bg_border_circle_ripple"
                 android:fontFamily="@font/binggraesamancobold"
-                android:textSize="20dp"
                 android:text="-"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintEnd_toStartOf="@+id/main_drink_btn"
+                app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toEndOf="@+id/roundedDashView_vertical"
-                app:layout_constraintTop_toBottomOf="@+id/main_text_jan"
-                app:layout_constraintVertical_bias="0.258" />
+                app:layout_constraintTop_toBottomOf="@+id/main_jan_ml_text"
+                app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </merge>

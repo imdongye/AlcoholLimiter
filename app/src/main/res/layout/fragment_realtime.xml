@@ -19,6 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <!--time-->
+            <include layout="@layout/realtime_time"/>
             <!--select-->
             <include layout="@layout/realtime_select"/>
             <!--main-->
