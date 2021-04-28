@@ -51,6 +51,7 @@ public class RoundedDashView extends View {
     }
     @Override
     public void onWindowFocusChanged(boolean a){
+        Log.i("lim", String.format("%d %d", getWidth(), getHeight()));
         setOrientation((getWidth()>getHeight()) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
     }
 
