@@ -51,6 +51,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.066" />
+
                     <ImageButton
                         android:id="@+id/main_bottle_btn"
                         android:layout_width="99dp"
@@ -110,7 +111,7 @@
                         app:layout_constraintVertical_bias="0.1">
 
                         <EditText
-                            android:id="@+id/main_edit_ml"
+                            android:id="@+id/main_edit_bottle_ml"
                             android:layout_width="59dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -130,7 +131,7 @@
                     </LinearLayout>
 
                     <com.example.alcohollimiter.RoundedDashView
-                        android:id="@+id/roundedDashView"
+                        android:id="@+id/roundedDashView_vertical"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -138,9 +139,90 @@
                         app:layout_constraintHorizontal_bias="0.079"
                         app:layout_constraintStart_toEndOf="@+id/main_bottle_btn"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/binggraesamancobold"
+                        android:text="마신양"
+                        android:textColor="@color/lim_text_black"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.119"
+                        app:layout_constraintStart_toEndOf="@+id/roundedDashView_vertical"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.065" />
+
+                    <TextView
+                        android:id="@+id/main_total_ml"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/binggraesamanco"
+                        android:text="500ml"
+                        android:textColor="@color/lim_text_black"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.205"
+                        app:layout_constraintStart_toEndOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.062" />
+
+                    <TextView
+                        android:id="@+id/main_total_jan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/binggraesamanco"
+                        android:text="( 한병하고 다섯잔 )"
+                        android:textColor="@color/lim_text_black"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.178" />
+
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="21dp"
+                        android:background="@drawable/bg_border_cylinder_ripple"
+                        android:fontFamily="@font/binggraesamanco"
+                        android:text="edit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.482"
+                        app:layout_constraintStart_toEndOf="@+id/main_total_ml"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.066" />
+
+                    <ImageButton
+                        android:layout_width="122dp"
+                        android:layout_height="123dp"
+                        android:background="@drawable/bg_border_cylinder_ripple"
+                        android:padding="9dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_soju_jan"
+
+                        tools:layout_editor_absoluteX="254dp"
+                        tools:layout_editor_absoluteY="141dp" />
+
+                    <com.example.alcohollimiter.RoundedDashView
+                        android:id="@+id/roundedDashView"
+                        android:layout_width="200dp"
+                        android:layout_height="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/roundedDashView_vertical"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.cardview.widget.CardView>
 
 

@@ -6,12 +6,12 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 public class RoundedDashView extends View {
-
     public enum Orientation {
         VERTICAL,
         HORIZONTAL
@@ -41,6 +41,7 @@ public class RoundedDashView extends View {
         init();
     }
 
+
     private void init() {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -48,11 +49,16 @@ public class RoundedDashView extends View {
         paint.setColor(getResources().getColor(R.color.lim_gray_d));
         paint.setPathEffect(new DashPathEffect(new float[]{20, 25}, 20));
     }
+    @Override
+    public void onWindowFocusChanged(boolean a){
+        setOrientation((getWidth()>getHeight()) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         path.reset();
+
         if (orientation == Orientation.VERTICAL) {
             path.moveTo(getWidth() / 2, 0);
             path.quadTo(getWidth() / 2, getHeight() / 2, getWidth() / 2, getHeight());

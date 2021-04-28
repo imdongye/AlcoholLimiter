@@ -35,6 +35,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         switch(v.getId()){
             case R.id.main_bottle_btn:{
+                BottleDataDialogFragment bddf = BottleDataDialogFragment.getInstance();
+                bddf.show(getChildFragmentManager(), BottleDataDialogFragment.TAG_BOTTLEDATA_DIALOG);
                 //final Calendar c = MyApplication.getRealtimeData().calendar;
                 /*AlertDialog.Builder builder = new AlertDialog.Builder(ct);
                 String dataText = String.format("%d년 %2d월 %2d일 %2d시 %2d분", c.get(Calendar.YEAR), (c.get(Calendar.MONTH)+1), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));

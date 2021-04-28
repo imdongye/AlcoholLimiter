@@ -1,29 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="260dp"
+        android:layout_height="400dp"
+        android:background="@drawable/bg_round_rectangle"
+        android:backgroundTint="@color/lim_back"
         android:padding="24dp"
-        android:background="#2B353E"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/tvSample"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:textColor="@android:color/white"
-            android:textSize="15dp" />
+            android:fontFamily="@font/binggraesamanco"
+            android:text="한병 용량"
+            android:textColor="@color/lim_text_black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.134" />
+
+        <TextView
+            android:id="@+id/bottledata_bottle_ml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binggraesamanco"
+            android:text="360ml"
+            android:textColor="@color/lim_text_black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.306" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binggraesamanco"
+            android:text="내 주량의"
+            android:textColor="@color/lim_text_black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.467"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.439" />
+
+        <TextView
+            android:id="@+id/bottledata_capacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binggraesamanco"
+            android:text="50 %"
+            android:textColor="@color/lim_text_black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.582" />
 
         <Button
-            android:id="@+id/btnSample"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/lim_bgreen"
+            android:id="@+id/bottledata_btn"
+            android:layout_width="81dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_border_highlight_cylinder_ripple"
+            android:fontFamily="@font/binggraesamanco"
+            android:text="나가기"
             android:textColor="@color/white"
-            android:layout_marginTop="20dp"
-            android:text="GO" />
-    </LinearLayout>
-</layout>
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

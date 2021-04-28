@@ -7,9 +7,9 @@
             android:shape="rectangle">
             <stroke
                 android:width="2dp"
-                android:color="@color/lim_back_dd"/>
+                android:color="@color/lim_bgreen"/>
             <solid
-                android:color="@color/lim_back_w"/>
+                android:color="@color/lim_bgreen"/>
             <corners android:radius="50dp"/>
         </shape>
     </item>
