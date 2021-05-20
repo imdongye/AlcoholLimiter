@@ -1,5 +1,6 @@
 package com.example.alcohollimiter;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -96,7 +97,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                 int hh = Integer.parseInt(getTime.split(" ")[0]);
                 int mm = Integer.parseInt(getTime.split(" ")[1]);
                 Log.i("lim", "gettime" + getTime);
-                TimePickerDialog dialog = new TimePickerDialog(myContext, startTimesetListener, hh, mm, true );
+                TimePickerDialog dialog = new TimePickerDialog(myContext, AlertDialog.THEME_HOLO_LIGHT, startTimesetListener, hh, mm, true );
                 dialog.setTitle("시작시간");
                 dialog.show();
             }break;

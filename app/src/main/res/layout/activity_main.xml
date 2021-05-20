@@ -24,7 +24,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottombar"
-        android:background="@color/lim_back"
+        app:itemIconSize="30dp"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/lim_back_ww"
         app:itemTextColor="@color/colors_bottonbar"
         app:itemIconTint="@color/colors_bottonbar"/>
 

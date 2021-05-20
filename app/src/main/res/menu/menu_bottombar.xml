@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/bottom_realtime"
-        android:icon="@drawable/bg_round_rectangle"
-        android:title="realtime"
+        android:icon="@drawable/img_nav_real"
+        android:title="실시간"
         android:enabled="true" />
     <item
         android:id="@+id/bottom_callendar"
-        android:icon="@drawable/bg_round_rectangle"
-        android:title="callendar"
+        android:icon="@drawable/img_nav_cal"
+        android:title="기록"
         android:enabled="true" />
     <item
         android:id="@+id/bottom_setting"
-        android:icon="@drawable/bg_round_rectangle"
-        android:title="setting"
+        android:icon="@drawable/img_nav_set"
+        android:title="설정"
         android:enabled="true" />
 </menu>

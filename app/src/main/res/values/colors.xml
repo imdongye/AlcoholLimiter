@@ -10,9 +10,11 @@
     <color name="transparent">#00000000</color>
 
     <color name="lim_bgreen">#356859</color>
+    <color name="lim_bgreen_d">#2C594B</color>
     <color name="lim_bgreen_w">#37966F</color>
     <color name="lim_bgreen_ww">#37966F</color>
     <color name="lim_orange">#FD5523</color>
+    <color name="lim_back_ww">#FFFCEA</color>
     <color name="lim_back_w">#FEFAE8</color>
     <color name="lim_back">#FFFBE6</color>
     <color name="lim_back_d">#ECE9D5</color>
