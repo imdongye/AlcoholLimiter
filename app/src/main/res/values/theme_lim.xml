@@ -9,7 +9,6 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorButtonNormal">@null</item>
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorPrimary</item><!--?attr/colorPrimary-->
         <item name="android:actionBarSize">51dp</item>
         <item name="android:fontFamily">@font/binggraesamancobold</item>
     </style>

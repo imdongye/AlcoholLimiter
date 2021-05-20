@@ -23,4 +23,6 @@
     <color name="lim_gray_d">#808080</color>
     <color name="lim_gray_dd">#43423D</color>
     <color name="lim_text_black">#43423D</color>
+    <color name="lim_red">#C52816</color>
+    <color name="lim_red_w">#CF5749</color>
 </resources>

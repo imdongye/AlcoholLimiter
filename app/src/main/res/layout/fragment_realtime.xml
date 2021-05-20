@@ -20,7 +20,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <!--time-->
-            <include layout="@layout/realtime_time"/>
+            <include layout="@layout/realtime_time_elapsed"/>
+            <!--time-->
+            <include layout="@layout/realtime_time_start"/>
             <!--select-->
             <include layout="@layout/realtime_select"/>
             <!--main-->
