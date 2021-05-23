@@ -32,7 +32,7 @@
                 app:layout_constraintVertical_bias="0.17" />
 
             <TextView
-                android:id="@+id/time_starttime_text"
+                android:id="@+id/realtime_starttime_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -48,7 +48,7 @@
                 app:layout_constraintVertical_bias="0.272" />
 
             <Button
-                android:id="@+id/time_starttime_edit_btn"
+                android:id="@+id/realtime_starttime_edit_btn"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_border_cylinder_ripple"
@@ -57,7 +57,7 @@
                 android:textSize="22dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.89"
+                app:layout_constraintHorizontal_bias="0.945"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.49"
@@ -65,7 +65,7 @@
 
             <Button
                 android:visibility="visible"
-                android:id="@+id/time_start_btn"
+                android:id="@+id/realtime_start_btn"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_border_cylinder_ripple"

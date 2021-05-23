@@ -1,13 +1,10 @@
 package com.example.alcohollimiter;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,28 +12,122 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Random;
 
 
 public class RealtimeFragment extends Fragment implements View.OnClickListener{
+    public class AlcoholTypeData {
+        public String name = "진로";
+        public double alcohol = 17.8;
+        public int bottleMl = 360;
+        public int janMl = 50;
+        public int imgAdrs = 0;
+
+        public AlcoholTypeData(String _name, double _alcohol, int _bottleMl, int _janMl, int _imgAdrs) {
+            name = _name;
+            alcohol = _alcohol;
+            bottleMl = _bottleMl;
+            janMl = _janMl;
+            imgAdrs = _imgAdrs;
+        }
+    }
+    TextView startTimeText;
+    TextView elapsedTimeText;
+    TextView tickerText;
+    View elapsedView;
+    int[] tickerColors = {R.color.lim_bgreen, R.color.lim_orange, R.color.lim_red, R.color.lim_gray, R.color.lim_bgreen_d, R.color.lim_text_black};
+    final int tickerColorN = tickerColors.length-1;
+    public class CounterTask extends AsyncTask<Integer, Integer, Integer> {
+        long startTime;
+        boolean termination = false;
+        boolean isStart = false;
+        long tickerCount = 0;
+        SimpleDateFormat startTimeFormat=new SimpleDateFormat("a h시 m분");
+        SimpleDateFormat elapsedTimeFormat=new SimpleDateFormat("H시간 m분 째");
+        SimpleDateFormat elapsedTimeFormatS=new SimpleDateFormat("m분 째");
+        @Override
+        protected void onPreExecute() { // 1. UI thread
+            super.onPreExecute();
+            startTimeText.setText(startTimeFormat.format(new Date(System.currentTimeMillis())));
+            Log.e("lim","onPreExecute");
+        }
+        @Override
+        protected Integer doInBackground(Integer... value) { // 2. worker thread
+            while(!termination){
+                try {
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){}
+                publishProgress();
+            }
+            Log.e("lim","doInBackground End");
+            return 0;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... value) { // 3. UI thread
+            super.onProgressUpdate();
+            long now = System.currentTimeMillis();
+            if(!isStart) {
+                startTimeText.setText(startTimeFormat.format(new Date(now)));
+            }
+            else {
+                Date etime = new Date(now);
+                String s = elapsedTimeFormat.format(etime);
+                if(s.charAt(0) != '0' )
+                    elapsedTimeText.setText(s);
+                else
+                    elapsedTimeText.setText(elapsedTimeFormatS.format(etime));
+            }
+            Log.i("lim", ""+tickerColors[(int)(Math.random()*tickerColorN)]);
+
+            tickerText.setVisibility((tickerCount%2 == 0) ? View.VISIBLE : View.INVISIBLE);
+            tickerCount++;
+        }
+        @Override
+        protected void onPostExecute(Integer result) { // 4. UI thread
+            super.onPostExecute(result);
+            Log.e("lim","onPostExecute");
+        }
+        public void setStart() {
+            startTime = System.currentTimeMillis();
+            startTimeText.setText(startTimeFormat.format(new Date(startTime)));
+            elapsedTimeText.setText(elapsedTimeFormatS.format(new Date(getElapsedTime())));
+            elapsedView.setVisibility(View.VISIBLE);
+            isStart = true;
+        }
+        public void setEnd() {
+            elapsedView.setVisibility(View.GONE);
+            isStart= false;
+        }
+        public void setStartTime(long _startTime) {
+            startTime = _startTime;
+        }
+        public long getStartTime() {
+            return startTime;
+        }
+        public long getElapsedTime() {
+            return System.currentTimeMillis() - startTime;
+        }
+        public boolean getIsStart() {
+            return isStart;
+        }
+    }
+
     private View rootView;
     private Context myContext;
 
     private TimePickerDialog.OnTimeSetListener startTimesetListener;
-    private TextView startTimeText;
+    CounterTask counterTask;
     int curType = 0;
     int totalMl=0;
 
@@ -55,8 +146,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         rootView = inflater.inflate(R.layout.fragment_realtime, container, false);
         myContext = container.getContext();
 
-        Button time_starttime_edit_btn = (Button)rootView.findViewById(R.id.time_starttime_edit_btn);
-        time_starttime_edit_btn.setOnClickListener(this);
+
 
         ImageButton main_bottle_btn = (ImageButton)rootView.findViewById(R.id.main_bottle_btn);
         main_bottle_btn.setOnClickListener(this);
@@ -77,7 +167,30 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         typeDatas.add(new AlcoholTypeData("맥주", 4.5, 500, 170, R.drawable.img_beer_bottle));
         typeDatas.add(new AlcoholTypeData("막걸리", 5, 750, 170, R.drawable.img_mak_bottle));
 
-        runStartTime();
+        //시작시간패널, 카운트시간패널
+        Button starttime_edit_btn = (Button)rootView.findViewById(R.id.realtime_starttime_edit_btn);
+        starttime_edit_btn.setOnClickListener(this);
+        Button start_btn = (Button)rootView.findViewById(R.id.realtime_start_btn);
+        start_btn.setOnClickListener(this);
+        Button stop_btn = (Button)rootView.findViewById(R.id.realtime_stop_btn);
+        stop_btn.setOnClickListener(this);
+        startTimeText = (TextView)rootView.findViewById(R.id.realtime_starttime_text);
+        elapsedTimeText = (TextView)rootView.findViewById(R.id.realtime_elapsed_time_text);
+        tickerText = (TextView)rootView.findViewById(R.id.realtime_elapsed_ticker);
+        elapsedView = rootView.findViewById(R.id.realtime_elapsed_view);
+        counterTask = new CounterTask();
+        counterTask.execute();
+        startTimesetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                long curMiliTime = System.currentTimeMillis();
+                String resultTime = new SimpleDateFormat("yyyy/mm/dd").format(curMiliTime);
+                resultTime.concat(String.format(" %2d:%2d:00", hourOfDay, minute));
+                LocalDateTime localDateTime = LocalDateTime.parse(resultTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss") );
+                long millis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                counterTask.setStartTime(millis);
+            }
+        };
 
         return rootView;
     }
@@ -85,11 +198,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v){
         switch(v.getId()){
-            case R.id.main_bottle_btn:{
-                BottleDataDialogFragment bddf = BottleDataDialogFragment.getInstance();
-                bddf.show(getChildFragmentManager(), BottleDataDialogFragment.TAG_BOTTLEDATA_DIALOG);
-            }break;
-            case R.id.time_starttime_edit_btn:{
+            case R.id.realtime_starttime_edit_btn:{
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
                 SimpleDateFormat sd = new SimpleDateFormat("hh mm");
@@ -100,6 +209,22 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                 TimePickerDialog dialog = new TimePickerDialog(myContext, AlertDialog.THEME_HOLO_LIGHT, startTimesetListener, hh, mm, false );
                 dialog.setTitle("시작시간");
                 dialog.show();
+                tickerText.setTextColor(R.color.lim_red);
+
+            }break;
+            case R.id.realtime_start_btn:{
+                rootView.findViewById(R.id.realtime_start_btn).setVisibility(View.GONE);
+                rootView.findViewById(R.id.realtime_starttime_edit_btn).setVisibility(View.VISIBLE);
+                counterTask.setStart();
+            }break;
+            case R.id.realtime_stop_btn:{
+                rootView.findViewById(R.id.realtime_start_btn).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.realtime_starttime_edit_btn).setVisibility(View.GONE);
+                counterTask.setEnd();
+            }break;
+            case R.id.main_bottle_btn:{
+                BottleDataDialogFragment bddf = BottleDataDialogFragment.getInstance();
+                bddf.show(getChildFragmentManager(), BottleDataDialogFragment.TAG_BOTTLEDATA_DIALOG);
             }break;
             case R.id.select_1_btn:{
                 setMainType(0);
@@ -127,15 +252,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             }break;
         }
     }
-    void runStartTime() {
-        startTimeText = (TextView)rootView.findViewById(R.id.time_starttime_text);
-        startTimesetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                startTimeText.setText(String.format("%d시간 %d분", hourOfDay, minute));
-            }
-        };
-    }
     void setMainType(int type) {
         curType = type;
         Log.i("lim", Integer.toString(type));
@@ -152,21 +268,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         bottleImg.setImageDrawable(getResources().getDrawable(typeDatas.get(type).imgAdrs, null));
     }
 
-    public class AlcoholTypeData {
-        public String name = "진로";
-        public double alcohol = 17.8;
-        public int bottleMl = 360;
-        public int janMl = 50;
-        public int imgAdrs = 0;
 
-        public AlcoholTypeData(String _name, double _alcohol, int _bottleMl, int _janMl, int _imgAdrs) {
-            name = _name;
-            alcohol = _alcohol;
-            bottleMl = _bottleMl;
-            janMl = _janMl;
-            imgAdrs = _imgAdrs;
-        }
-    }
     public void setTotal(int t){
         EditText totalEdit = (EditText)rootView.findViewById(R.id.main_total_ml_edit);
         totalMl = t;

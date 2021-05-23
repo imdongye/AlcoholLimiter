@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lim">
-        <!--dont show bottomnav when keyboard pop -->
-        <activity android:name=".MainActivity"
+        <!-- dont show bottomnav when keyboard pop -->
+        <activity
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
