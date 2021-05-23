@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
@@ -46,8 +47,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     TextView elapsedTimeText;
     TextView tickerText;
     View elapsedView;
-    int[] tickerColors = {R.color.lim_bgreen, R.color.lim_orange, R.color.lim_red, R.color.lim_gray, R.color.lim_bgreen_d, R.color.lim_text_black};
-    final int tickerColorN = tickerColors.length-1;
+    int[] tickerColors = {R.color.lim_bgreen, R.color.lim_red,R.color.lim_bgreen_d, R.color.lim_text_black};
+    final int tickerColorN = tickerColors.length;
     public class CounterTask extends AsyncTask<Integer, Integer, Integer> {
         long startTime;
         boolean termination = false;
@@ -60,7 +61,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         protected void onPreExecute() { // 1. UI thread
             super.onPreExecute();
             startTimeText.setText(startTimeFormat.format(new Date(System.currentTimeMillis())));
-            Log.e("lim","onPreExecute");
         }
         @Override
         protected Integer doInBackground(Integer... value) { // 2. worker thread
@@ -69,34 +69,32 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){}
                 publishProgress();
-            }
-            Log.e("lim","doInBackground End");
+            };
             return 0;
         }
         @Override
         protected void onProgressUpdate(Integer... value) { // 3. UI thread
             super.onProgressUpdate();
             long now = System.currentTimeMillis();
-            if(!isStart) {
+            if(!isStart) { // stop
                 startTimeText.setText(startTimeFormat.format(new Date(now)));
             }
-            else {
-                Date etime = new Date(now);
+            else { // start
+                Date etime = new Date(getElapsedTime());
                 String s = elapsedTimeFormat.format(etime);
                 if(s.charAt(0) != '0' )
                     elapsedTimeText.setText(s);
                 else
                     elapsedTimeText.setText(elapsedTimeFormatS.format(etime));
+                int cn = (int)((tickerCount/2)%tickerColorN);
+                tickerText.setTextColor(ContextCompat.getColor(myContext, tickerColors[cn]));
+                tickerText.setVisibility((tickerCount%2 == 0) ? View.VISIBLE : View.INVISIBLE);
+                tickerCount++;
             }
-            Log.i("lim", ""+tickerColors[(int)(Math.random()*tickerColorN)]);
-
-            tickerText.setVisibility((tickerCount%2 == 0) ? View.VISIBLE : View.INVISIBLE);
-            tickerCount++;
         }
         @Override
         protected void onPostExecute(Integer result) { // 4. UI thread
             super.onPostExecute(result);
-            Log.e("lim","onPostExecute");
         }
         public void setStart() {
             startTime = System.currentTimeMillis();
@@ -209,7 +207,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                 TimePickerDialog dialog = new TimePickerDialog(myContext, AlertDialog.THEME_HOLO_LIGHT, startTimesetListener, hh, mm, false );
                 dialog.setTitle("시작시간");
                 dialog.show();
-                tickerText.setTextColor(R.color.lim_red);
 
             }break;
             case R.id.realtime_start_btn:{
