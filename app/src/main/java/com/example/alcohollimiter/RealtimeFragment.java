@@ -20,10 +20,13 @@ import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 
@@ -96,19 +99,20 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         protected void onPostExecute(Integer result) { // 4. UI thread
             super.onPostExecute(result);
         }
-        public void setStart() {
-            startTime = System.currentTimeMillis();
-            startTimeText.setText(startTimeFormat.format(new Date(startTime)));
-            elapsedTimeText.setText(elapsedTimeFormatS.format(new Date(getElapsedTime())));
-            elapsedView.setVisibility(View.VISIBLE);
-            isStart = true;
-        }
         public void setEnd() {
-            elapsedView.setVisibility(View.GONE);
             isStart= false;
+            refreshUI();
         }
         public void setStartTime(long _startTime) {
-            startTime = _startTime;
+            long cTime = System.currentTimeMillis();
+            startTime = (_startTime > cTime) ? cTime : _startTime;
+            isStart = true;
+            refreshUI();
+        }
+        void refreshUI() {
+            startTimeText.setText(startTimeFormat.format(new Date(startTime)));
+            elapsedTimeText.setText(elapsedTimeFormatS.format(new Date(getElapsedTime())));
+            elapsedView.setVisibility((isStart) ? View.VISIBLE : View.GONE);
         }
         public long getStartTime() {
             return startTime;
@@ -181,12 +185,11 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         startTimesetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                long curMiliTime = System.currentTimeMillis();
-                String resultTime = new SimpleDateFormat("yyyy/mm/dd").format(curMiliTime);
-                resultTime.concat(String.format(" %2d:%2d:00", hourOfDay, minute));
-                LocalDateTime localDateTime = LocalDateTime.parse(resultTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss") );
-                long millis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                counterTask.setStartTime(millis);
+                Calendar cal = Calendar.getInstance();
+                Log.i("lim", ""+hourOfDay);
+                cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                cal.set(Calendar.MINUTE, minute);
+                counterTask.setStartTime(cal.getTimeInMillis());
             }
         };
 
@@ -199,7 +202,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             case R.id.realtime_starttime_edit_btn:{
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
-                SimpleDateFormat sd = new SimpleDateFormat("hh mm");
+                SimpleDateFormat sd = new SimpleDateFormat("H m");
                 String getTime = sd.format(date);
                 int hh = Integer.parseInt(getTime.split(" ")[0]);
                 int mm = Integer.parseInt(getTime.split(" ")[1]);
@@ -212,7 +215,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             case R.id.realtime_start_btn:{
                 rootView.findViewById(R.id.realtime_start_btn).setVisibility(View.GONE);
                 rootView.findViewById(R.id.realtime_starttime_edit_btn).setVisibility(View.VISIBLE);
-                counterTask.setStart();
+                counterTask.setStartTime(System.currentTimeMillis());
             }break;
             case R.id.realtime_stop_btn:{
                 rootView.findViewById(R.id.realtime_start_btn).setVisibility(View.VISIBLE);
