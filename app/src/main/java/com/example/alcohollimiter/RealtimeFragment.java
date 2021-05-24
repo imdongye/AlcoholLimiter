@@ -58,8 +58,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         boolean isStart = false;
         long tickerCount = 0;
         SimpleDateFormat startTimeFormat=new SimpleDateFormat("a h시 m분");
-        SimpleDateFormat elapsedTimeFormat=new SimpleDateFormat("H시간 m분 째");
-        SimpleDateFormat elapsedTimeFormatS=new SimpleDateFormat("m분 째");
         @Override
         protected void onPreExecute() { // 1. UI thread
             super.onPreExecute();
@@ -83,12 +81,10 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                 startTimeText.setText(startTimeFormat.format(new Date(now)));
             }
             else { // start
-                Date etime = new Date(getElapsedTime());
-                String s = elapsedTimeFormat.format(etime);
-                if(s.charAt(0) != '0' )
-                    elapsedTimeText.setText(s);
-                else
-                    elapsedTimeText.setText(elapsedTimeFormatS.format(etime));
+                long eTime = getElapsedTime();
+                long mm = (eTime/(60000))%60;
+                long hh = eTime/(60*60*1000);
+                elapsedTimeText.setText((hh != 0 ) ? String.format("%d시간 %d분 째", hh, mm) :String.format("%d분 째", mm));
                 int cn = (int)((tickerCount/2)%tickerColorN);
                 tickerText.setTextColor(ContextCompat.getColor(myContext, tickerColors[cn]));
                 tickerText.setVisibility((tickerCount%2 == 0) ? View.VISIBLE : View.INVISIBLE);
@@ -111,7 +107,10 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         }
         void refreshUI() {
             startTimeText.setText(startTimeFormat.format(new Date(startTime)));
-            elapsedTimeText.setText(elapsedTimeFormatS.format(new Date(getElapsedTime())));
+            long eTime = getElapsedTime();
+            long mm = (eTime/(60000))%60;
+            long hh = eTime/(60*60*1000);
+            elapsedTimeText.setText((hh != 0 ) ? String.format("%d시간 %d분 째", hh, mm) :String.format("%d분 째", mm));
             elapsedView.setVisibility((isStart) ? View.VISIBLE : View.GONE);
         }
         public long getStartTime() {
@@ -186,7 +185,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 Calendar cal = Calendar.getInstance();
-                Log.i("lim", ""+hourOfDay);
                 cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 cal.set(Calendar.MINUTE, minute);
                 counterTask.setStartTime(cal.getTimeInMillis());
@@ -202,11 +200,10 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             case R.id.realtime_starttime_edit_btn:{
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
-                SimpleDateFormat sd = new SimpleDateFormat("H m");
+                SimpleDateFormat sd = new SimpleDateFormat("HH mm");
                 String getTime = sd.format(date);
                 int hh = Integer.parseInt(getTime.split(" ")[0]);
                 int mm = Integer.parseInt(getTime.split(" ")[1]);
-                Log.i("lim", "gettime" + getTime);
                 TimePickerDialog dialog = new TimePickerDialog(myContext, AlertDialog.THEME_HOLO_LIGHT, startTimesetListener, hh, mm, false );
                 dialog.setTitle("시작시간");
                 dialog.show();
@@ -239,7 +236,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
 
             }break;
             case R.id.main_drink_btn:{
-                Log.i("asdf","asdf");
                 setTotal(totalMl + typeDatas.get(curType).janMl);
                 calculateBlood();
             }break;
@@ -254,7 +250,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     }
     void setMainType(int type) {
         curType = type;
-        Log.i("lim", Integer.toString(type));
         TextView typeText = (TextView)rootView.findViewById(R.id.main_type_text);
         EditText alcoholEdit = (EditText)rootView.findViewById(R.id.main_alcohol_edit);
         ImageButton bottleImg = (ImageButton)rootView.findViewById(R.id.main_bottle_btn);

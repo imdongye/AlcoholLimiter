@@ -13,24 +13,29 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="5dp"
             android:orientation="vertical">
             <!--time-->
-            <include layout="@layout/realtime_time_elapsed"/>
+            <include layout="@layout/realtime_time_elapsed" />
             <!--time-->
-            <include layout="@layout/realtime_time_start"/>
+            <include layout="@layout/realtime_time_start" />
             <!--select-->
-            <include layout="@layout/realtime_select"/>
+            <include layout="@layout/realtime_select" />
             <!--main-->
-            <include layout="@layout/realtime_main"/>
+            <include layout="@layout/realtime_main" />
             <!--blood-->
-            <include layout="@layout/realtime_blood"/>
+            <include layout="@layout/realtime_blood" />
             <!--subdata-->
-            <include layout="@layout/realtime_subdata"/>
+            <include layout="@layout/realtime_subdata" />
         </LinearLayout>
 
 
