@@ -78,7 +78,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             super.onProgressUpdate();
             long now = System.currentTimeMillis();
             if(!isStart) { // stop
-                startTimeText.setText(startTimeFormat.format(new Date(now)));
+                startTime = now;
+                startTimeText.setText(startTimeFormat.format(new Date(startTime)));
             }
             else { // start
                 long eTime = getElapsedTime();
@@ -97,6 +98,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         }
         public void setEnd() {
             isStart= false;
+            startTime = System.currentTimeMillis();
             refreshUI();
         }
         public void setStartTime(long _startTime) {
@@ -117,7 +119,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             return startTime;
         }
         public long getElapsedTime() {
-            return System.currentTimeMillis() - startTime;
+            return System.currentTimeMillis() - startTime + 60000;
         }
         public boolean getIsStart() {
             return isStart;
