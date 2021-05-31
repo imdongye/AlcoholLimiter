@@ -62,10 +62,10 @@ public class RoundedDashView extends View {
 
         if (orientation == Orientation.VERTICAL) {
             path.moveTo(getWidth() / 2, 0);
-            path.quadTo(getWidth() / 2, getHeight() / 2, getWidth() / 2, getHeight());
+            path.quadTo(getWidth() / 2, getHeight() / 2, getWidth() / 2, getHeight()-10);
         } else {
             path.moveTo(0, getHeight() / 2);
-            path.quadTo(getWidth() / 2, getHeight() / 2, getWidth(), getHeight() / 2);
+            path.quadTo(getWidth() / 2, getHeight() / 2, getWidth()-20, getHeight() / 2);
         }
         canvas.drawPath(path, paint);
     }

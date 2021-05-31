@@ -32,10 +32,14 @@
             <include layout="@layout/realtime_select" />
             <!--main-->
             <include layout="@layout/realtime_main" />
+            <!--condition-->
+            <include layout="@layout/realtime_condition"/>
             <!--blood-->
             <include layout="@layout/realtime_blood" />
             <!--subdata-->
             <include layout="@layout/realtime_subdata" />
+            <!--graph-->
+            <include layout="@layout/realtime_graph" />
         </LinearLayout>
 
 
