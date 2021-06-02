@@ -19,7 +19,8 @@
     <color name="lim_back">#FFFBE6</color>
     <color name="lim_back_d">#ECE9D5</color>
     <color name="lim_back_dd">#E8E4C7</color>
-    <color name="lim_gray">#E5E5E5</color>
+    <color name="lim_gray_w">#E5E5E5</color>
+    <color name="lim_gray">#85000000</color>
     <color name="lim_gray_d">#808080</color>
     <color name="lim_gray_dd">#43423D</color>
     <color name="lim_text_black">#43423D</color>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        app:cardBackgroundColor="@color/lim_back"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/binggraesamancobold"
+                android:text="마신 술을 인원 수로 나눠서 계산하기"
+                android:textColor="@color/lim_text_black"
+                android:textSize="23dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.132"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/binggraesamanco"
+                android:text="4명"
+                android:textColor="@color/lim_text_black"
+                android:textSize="35dp"
+                app:layout_constraintBottom_toBottomOf="@+id/person_min_btn"
+                app:layout_constraintStart_toEndOf="@+id/person_min_btn"
+                app:layout_constraintTop_toTopOf="@+id/person_min_btn" />
+
+            <ImageButton
+                android:id="@+id/person_plus_btn"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_border_circle_ripple"
+                android:elevation="2dp"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_plus"
+                android:tint="@color/lim_gray_dd"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                app:layout_constraintStart_toEndOf="@+id/textView15"
+                app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+            <ImageButton
+                android:id="@+id/person_min_btn"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_border_circle_ripple"
+                android:elevation="2dp"
+                android:padding="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_min"
+                android:tint="@color/lim_gray_dd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <ImageView
+                android:id="@+id/lineView"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_border_line"
+                android:paddingVertical="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintStart_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:tint="@color/lim_gray" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lineView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.505"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</merge>

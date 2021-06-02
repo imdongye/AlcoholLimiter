@@ -56,9 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        // 액션바 시작시간표시
-
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
     }
 
     @Override

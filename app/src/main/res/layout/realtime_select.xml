@@ -48,7 +48,7 @@
                     android:scaleType="fitCenter"
                     android:elevation="2dp"
                     android:background="@drawable/bg_border_circle_ripple"
-                    android:src="@drawable/img_soju_bottle"
+                    android:src="@drawable/img_bottle_soju_360"
                     android:padding="7dp"/>
                 <ImageButton
                     android:id="@+id/select_2_btn"
@@ -58,7 +58,7 @@
                     android:scaleType="fitCenter"
                     android:elevation="2dp"
                     android:background="@drawable/bg_border_circle_ripple"
-                    android:src="@drawable/img_beer_bottle"
+                    android:src="@drawable/img_bottle_beer_500"
                     android:padding="7dp"/>
                 <ImageButton
                     android:id="@+id/select_3_btn"
@@ -68,7 +68,7 @@
                     android:scaleType="fitCenter"
                     android:elevation="2dp"
                     android:background="@drawable/bg_border_circle_ripple"
-                    android:src="@drawable/img_mak_bottle"
+                    android:src="@drawable/img_bottle_mak_750"
                     android:padding="7dp"/>
                 <ImageButton
                     android:id="@+id/select_more_btn"

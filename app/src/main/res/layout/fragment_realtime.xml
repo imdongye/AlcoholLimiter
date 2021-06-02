@@ -38,8 +38,12 @@
             <include layout="@layout/realtime_blood" />
             <!--subdata-->
             <include layout="@layout/realtime_subdata" />
+            <!--calorie-->
+            <include layout="@layout/realtime_calorie"/>
             <!--graph-->
             <include layout="@layout/realtime_graph" />
+            <!--people calculate-->
+            <include layout="@layout/realtime_people"/>
         </LinearLayout>
 
 
