@@ -3,12 +3,16 @@ package com.example.alcohollimiter;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +33,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 
-public class RealtimeFragment extends Fragment implements View.OnClickListener{
+public class RealtimeFragment extends Fragment implements View.OnClickListener, View.OnKeyListener{
+    final static String[] KorOneCount = {"한","두","세","네","다섯","여섯","일곱","여덟","아홉"};
+    final static String[] KorTenCount = {"열","스물","서른","마흔","쉰","예순","일흔","여든","아흔"};
+
     private View rootView;
     private Context myContext;
     private TimePickerDialog.OnTimeSetListener startTimesetListener;
@@ -41,6 +49,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     View elapsedView;
     CounterTask counterTask;
     int totalMl=0;
+    DBHelper helper;
     SQLiteDatabase db;
     ArrayList<LiquorType> liquorTypes;
     int[] selectBtnOfIds = {0,1,2};
@@ -74,11 +83,31 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_realtime, container, false);
-        myContext = container.getContext();
+        myContext = getActivity().getApplicationContext();
 
+        // 술 종류 데이터 가져오기
+        liquorTypes = new ArrayList<LiquorType>();
+        helper = new DBHelper(myContext);
+        try {
+            db = helper.getWritableDatabase();
+        } catch (SQLiteException e){
+            db = helper.getReadableDatabase();
+        }
+        Cursor cursor;
+        cursor = db.rawQuery("SELECT * from liquors", null);
+        while(cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            double abv = cursor.getFloat(2);
+            int botml = cursor.getInt(3);
+            int janml = cursor.getInt(4);
+            int kcal = cursor.getInt(5);
+            liquorTypes.add(new LiquorType(id, name, abv, botml, janml, kcal));
+        }
+
+        // 버튼연결
         ImageButton main_bottle_btn = (ImageButton)rootView.findViewById(R.id.main_bottle_btn);
         main_bottle_btn.setOnClickListener(this);
-
         ImageButton select_1_btn = (ImageButton)rootView.findViewById(R.id.select_1_btn);
         select_1_btn.setOnClickListener(this);
         ImageButton select_2_btn = (ImageButton)rootView.findViewById(R.id.select_2_btn);
@@ -87,8 +116,16 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         select_3_btn.setOnClickListener(this);
         ImageButton main_drink_btn = (ImageButton)rootView.findViewById(R.id.main_drink_btn);
         main_drink_btn.setOnClickListener(this);
-        Button main_total_edit_btn = (Button) rootView.findViewById(R.id.main_total_edit_btn);
+        Button main_total_edit_btn = (Button) rootView.findViewById(R.id.main_drink_ml_edit_btn);
         main_total_edit_btn.setOnClickListener(this);
+
+        // edit text 동작설정
+        EditText liquorAbvEdit = (EditText)rootView.findViewById(R.id.main_alcohol_edit);
+        EditText liquorBottleMlEdit = (EditText)rootView.findViewById(R.id.main_bottle_ml_edit);
+        EditText liquorDrinkMlEdit = (EditText)rootView.findViewById(R.id.main_drink_ml_edit);
+        liquorAbvEdit.setOnKeyListener(this);
+        liquorBottleMlEdit.setOnKeyListener(this);
+        liquorDrinkMlEdit.setOnKeyListener(this);
 
         //시작시간패널, 카운트시간패널
         Button starttime_edit_btn = (Button)rootView.findViewById(R.id.realtime_starttime_edit_btn);
@@ -101,7 +138,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         elapsedTimeText = (TextView)rootView.findViewById(R.id.realtime_elapsed_time_text);
         tickerText = (TextView)rootView.findViewById(R.id.realtime_elapsed_ticker);
         elapsedView = rootView.findViewById(R.id.realtime_elapsed_view);
-
         startTimesetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -114,33 +150,12 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         counterTask = new CounterTask();
         counterTask.execute();
 
-        liquorTypes = new ArrayList<LiquorType>();
-        DBHelper helper = new DBHelper(myContext);
-        try {
-            db = helper.getWritableDatabase();
-        } catch (SQLiteException e){
-            db = helper.getReadableDatabase();
-        }
-       // helper.onUpgrade(db, 0, 0);
-
-        Cursor cursor;
-        cursor = db.rawQuery("SELECT * from liquors", null);
-        while(cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            double abv = cursor.getFloat(2);
-            int botml = cursor.getInt(3);
-            int janml = cursor.getInt(4);
-            int kcal = cursor.getInt(5);
-            liquorTypes.add(new LiquorType(id, name, abv, botml, janml, kcal));
-            Log.i("songjo", Integer.toString(id));
-        }
         Log.i("songjo", "onCreate");
         return rootView;
     }
     void selectLiquor(int order) {
         curLiquorTypeId = selectBtnOfIds[order];
-        LiquorType lt = liquorTypes.get(curLiquorTypeId);
+        LiquorType lt = getCurLiquorData();
 
         TextView typeText = (TextView)rootView.findViewById(R.id.main_type_text);
         EditText alcoholEdit = (EditText)rootView.findViewById(R.id.main_alcohol_edit);
@@ -157,12 +172,12 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         drinkBtn.setImageDrawable(getResources().getDrawable(lt.janImg, null));
     }
     public void setTotal(int t){
-        EditText totalEdit = (EditText)rootView.findViewById(R.id.main_total_ml_edit);
+        EditText totalEdit = (EditText)rootView.findViewById(R.id.main_drink_ml_edit);
         totalMl = t;
         totalEdit.setText(Integer.toString(totalMl));
     }
     void calculateBlood(){
-        double abv = liquorTypes.get(curLiquorTypeId).abv;
+        double abv = getCurLiquorData().abv;
         double a = totalMl* (abv/100.0);
         double pr = 76 *0.86;
         double rst = a*0.7/pr;
@@ -195,7 +210,9 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
                 counterTask.setEnd();
             }break;
             case R.id.main_bottle_btn:{
-                BottleDataDialogFragment bddf = BottleDataDialogFragment.getInstance();
+                // 한병의 주량 비교
+                BottleDataDialogFragment bddf = new BottleDataDialogFragment(
+                        getCurLiquorData().bottleMl, getCurLiquorData().getOneBottleCapPercent());
                 bddf.show(getChildFragmentManager(), BottleDataDialogFragment.TAG_BOTTLEDATA_DIALOG);
             }break;
             case R.id.select_1_btn:{
@@ -211,10 +228,10 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
 
             }break;
             case R.id.main_drink_btn:{
-                setTotal(totalMl + liquorTypes.get(curLiquorTypeId).janMl);
+                setTotal(totalMl + getCurLiquorData().janMl);
                 calculateBlood();
             }break;
-            case R.id.main_total_edit_btn:{
+            case R.id.main_drink_ml_edit_btn:{
                 setTotal(0);
                 calculateBlood();
             }
@@ -222,6 +239,38 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
 
             }break;
         }
+    }
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event){
+        if(event.getAction() == KeyEvent.ACTION_UP &&
+                keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER){
+            EditText et = (EditText)v;
+            switch (v.getId()){
+                case R.id.main_alcohol_edit:{
+                    getCurLiquorData().abv = Double.valueOf(et.getText().toString());
+                    helper.updateLiquor(db, getCurLiquorData());
+                }break;
+                case R.id.main_bottle_ml_edit:{
+                    getCurLiquorData().bottleMl = Integer.valueOf(et.getText().toString());
+                    helper.updateLiquor(db, getCurLiquorData());
+                    et.clearFocus();
+                }break;
+                case R.id.main_drink_ml_edit:{
+                    totalMl = Integer.valueOf(et.getText().toString());
+                    et.clearFocus();
+                }break;
+            }
+        }
+        return false;
+    }
+    public String intToKor(int n){
+        int ten = n%100;
+        int one = ten%10;
+        ten = (int)(ten/10);
+        return String.format("%s%s", KorTenCount[ten], KorOneCount[one]);
+    }
+    public LiquorType getCurLiquorData(){
+        return liquorTypes.get(curLiquorTypeId);
     }
     // 술데이터 타입
     public class LiquorType {
@@ -234,6 +283,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
         public int bottleImg = 0;
         public int janImg = 0;
 
+        public int drinkMl = 0;
+
         public LiquorType(int _id, String _name, double _abv, int _bottleMl, int _janMl, int _kcal) {
             id = _id;
             name = _name;
@@ -244,16 +295,35 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener{
             setImgById();
         }
         void setImgById(){
-            janImg = R.drawable.img_jan_beer_180;
+            janImg = R.drawable.img_jan_soju_50;
             switch (id){
-                case 1:{ bottleImg = R.drawable.img_bottle_soju_360; janImg = R.drawable.img_jan_soju_50; }break;
-                case 2:{ bottleImg = R.drawable.img_bottle_beer_500; }break;
+                case 1:{ bottleImg = R.drawable.img_bottle_soju_360;  }break;
+                case 2:{ bottleImg = R.drawable.img_bottle_beer_500; janImg = R.drawable.img_jan_beer_180;}break;
                 case 3:{ bottleImg = R.drawable.img_bottle_mak_750; janImg = R.drawable.img_jan_mak_200;}break;
-                case 4:{ bottleImg = R.drawable.img_bottle_wine; }break;
+                case 4:{ bottleImg = R.drawable.img_bottle_wine; janImg =R.drawable.img_jan_beer_180;}break;
                 case 5:{ bottleImg = R.drawable.img_bottle_vodka; }break;
                 case 6:{ bottleImg = R.drawable.img_bottle_wisky; }break;
-                default:{ bottleImg = R.drawable.img_bottle_mix; }break;
+                case 7:{ bottleImg = R.drawable.img_bottle_high_250;} break;
+                default:{ bottleImg = R.drawable.img_bottle_mix; janImg = R.drawable.img_jan_beer_180; }break;
             }
+        }
+        public String getBottelCount(){
+            String result = "";
+            int bc = (int)(drinkMl/bottleMl);
+            int hc = (int)((drinkMl%bottleMl)/(bottleMl/2));
+            int jc = (int)((drinkMl%(bottleMl/2))/janMl);
+            result = String.format("%s병%s하고 %s잔", intToKor(bc), (hc == 1)?"반":"", intToKor(jc));
+            return result;
+        }
+        public double getKcal(){
+            double result = kcal*drinkMl/100;
+            return result;
+        }
+        public int getOneBottleCapPercent(){
+            // 한병에 대한 내 주량의 퍼센트
+            double mySojuCap = myContext.getSharedPreferences(SettingsFragment.PREFS_NAME, 0).getFloat(SettingsFragment.P_SOJU_CAP, 1.5f);
+            double percent = (bottleMl*abv)/(mySojuCap*360*17.5);
+            return (int)(100*percent);
         }
     }
     // 카운터 어싱크 테스크 쓰래드

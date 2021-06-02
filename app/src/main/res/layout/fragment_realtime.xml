@@ -32,6 +32,8 @@
             <include layout="@layout/realtime_select" />
             <!--main-->
             <include layout="@layout/realtime_main" />
+            <!--total amout-->
+            <include layout="@layout/realtime_total_amout"/>
             <!--condition-->
             <include layout="@layout/realtime_condition"/>
             <!--blood-->

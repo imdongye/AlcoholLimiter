@@ -8,4 +8,8 @@
         android:id="@+id/action_inquiry"
         android:title="문의히기">
     </item>
+    <item
+        android:id="@+id/action_reset_liquors"
+        android:title="reset liquors">
+    </item>
 </menu>

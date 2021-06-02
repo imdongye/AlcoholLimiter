@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context=".BottleDataDialogFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="260dp"
@@ -13,77 +14,72 @@
         android:padding="24dp"
         android:layout_margin="10dp">
 
+
         <TextView
+            android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/binggraesamanco"
             android:text="한병 용량"
             android:textColor="@color/lim_text_black"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.134" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bottledata_bottle_ml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/binggraesamanco"
             android:text="360ml"
             android:textColor="@color/lim_text_black"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.306" />
-
+            app:layout_constraintEnd_toEndOf="@+id/textView16"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
+            android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/binggraesamanco"
             android:text="내 주량의"
             android:textColor="@color/lim_text_black"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.439" />
+            app:layout_constraintEnd_toEndOf="@+id/bottledata_bottle_ml"
+            app:layout_constraintStart_toStartOf="@+id/bottledata_bottle_ml"
+            app:layout_constraintTop_toBottomOf="@+id/bottledata_bottle_ml" />
 
         <TextView
             android:id="@+id/bottledata_capacity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/binggraesamanco"
             android:text="50 %"
             android:textColor="@color/lim_text_black"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582" />
+            app:layout_constraintEnd_toEndOf="@+id/textView18"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <Button
             android:id="@+id/bottledata_btn"
             android:layout_width="81dp"
             android:layout_height="40dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/bg_border_highlight_cylinder_ripple"
             android:fontFamily="@font/binggraesamanco"
             android:text="나가기"
             android:textColor="@color/white"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintEnd_toEndOf="@+id/bottledata_capacity"
+            app:layout_constraintStart_toStartOf="@+id/bottledata_capacity"
+            app:layout_constraintTop_toBottomOf="@+id/bottledata_capacity" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

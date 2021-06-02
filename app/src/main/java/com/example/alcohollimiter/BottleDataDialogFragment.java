@@ -25,35 +25,45 @@ import org.w3c.dom.Text;
 public class BottleDataDialogFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String TAG_BOTTLEDATA_DIALOG = "dialog_bottledata";
-
-    public BottleDataDialogFragment() {
-    }
-    public static BottleDataDialogFragment getInstance() {
-        BottleDataDialogFragment bd = new BottleDataDialogFragment();
-        return bd;
+    View rootView;
+    int bottleml = 390;
+    int cap_percent = 50;
+    public BottleDataDialogFragment(int _bottleml, int _cap_percent){
+        bottleml = _bottleml;
+        cap_percent = _cap_percent;
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_dialog_bottledata, container);
+        rootView = inflater.inflate(R.layout.fragment_dialog_bottledata, container, false);
         // 다이얼로그 코너 투명하게 하기위함
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
         // 화면밖 터치시 종료
         setCancelable(true);
 
-        Button mConfirmBtn = (Button) v.findViewById(R.id.bottledata_btn);
+        Button mConfirmBtn = (Button) rootView.findViewById(R.id.bottledata_btn);
         mConfirmBtn.setOnClickListener(this);
+        setDate();
+        return rootView;
+    }/*
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState){
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        // 전체화면시
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
+    }*/
+    private void setDate(){
+        TextView bottlemlView = (TextView) rootView.findViewById(R.id.bottledata_bottle_ml);
+        TextView capacityView = (TextView) rootView.findViewById(R.id.bottledata_capacity);
 
-        TextView totalml = (TextView) v.findViewById(R.id.bottledata_bottle_ml);
-        String totalst = "360ml";
-        SpannableString content = new SpannableString(totalst);
-        content.setSpan(new UnderlineSpan(), 0, totalml.length(), 0);
-        totalml.setText(content);
+        String bottlemlStr = bottleml + "ml";
+        SpannableString content = new SpannableString(bottlemlStr);
+        content.setSpan(new UnderlineSpan(), 0, bottlemlStr.length(), 0);
+        bottlemlView.setText(content);
 
-        TextView capacity = (TextView) v.findViewById(R.id.bottledata_capacity);
-
-        return v;
+        capacityView.setText(cap_percent+" %");
     }
     public void onClick(View view) {
         switch (view.getId()) {

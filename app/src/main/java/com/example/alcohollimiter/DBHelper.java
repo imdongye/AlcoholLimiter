@@ -1,5 +1,6 @@
 package com.example.alcohollimiter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -28,12 +29,29 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public void firstSetting(SQLiteDatabase db){
         Log.i("songjo", "set db first");
-        db.execSQL("insert into liquors values(null,'"+"소주"+"', 17.8, 360, 50, 120);");
-        db.execSQL("insert into liquors values(null,'"+"맥주"+"', 4.5, 500, 41, 200);");
-        db.execSQL("insert into liquors values(null,'"+"막걸리"+"', 5, 750, 46, 360);");
-        db.execSQL("insert into liquors values(null,'"+"와인"+"', 12.5, 360, 50, 83);");
-        db.execSQL("insert into liquors values(null,'"+"보드카"+"', 40, 360, 50, 90);");
-        db.execSQL("insert into liquors values(null,'"+"위스키"+"', 39, 360, 50, 95);");
-        db.execSQL("insert into liquors values(null,'"+"소맥1:3"+"', 8, 360, 50, 120);");
+        addLiquor(db,"소주", 17.8, 360, 50, 250);
+        addLiquor(db,"맥주", 4.5, 500, 50, 200);
+        addLiquor(db,"막걸리", 5, 720, 50, 210);
+        addLiquor(db,"와인", 12.5, 720, 50, 83);
+        addLiquor(db,"보드카", 40, 500, 50, 90);
+        addLiquor(db,"위스키", 39, 700, 50, 95);
+        addLiquor(db,"고량주", 50, 250, 50, 270);
+        addLiquor(db,"1대3 소맥", 17.8, 360, 50, 200);
+    }
+    public void addLiquor(SQLiteDatabase db, String name, double abv, int botml, int janml, int kcal) {
+        db.execSQL(String.format("insert into liquors values(null,'%s', %f, %d, %d, %d);",name, abv, botml, janml, kcal));
+    }
+    public void updateLiquor(SQLiteDatabase db, RealtimeFragment.LiquorType lt){
+        ContentValues values = new ContentValues();
+        values.put("abv", (float)lt.abv);
+        values.put("botml", lt.bottleMl);
+        values.put("janml", lt.janMl);
+        db.update("liquors", values, "_id="+lt.id, null);
+    }
+    public void addJanMemory(SQLiteDatabase db, int jantime, double abv, int janml, int liquorid) {
+        db.execSQL(String.format("insert into liquors values(null, %d, %f, %d, %d);",jantime, abv, janml, liquorid));
+    }
+    public void addAhcoholDay(SQLiteDatabase db, int starttime, int endtime, int startjanid, int endjanid) {
+        db.execSQL(String.format("insert into liquors values(null, %d, %d, %d, %d);",starttime, endtime, startjanid, endjanid));
     }
 }
