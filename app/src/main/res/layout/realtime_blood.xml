@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
         app:cardBackgroundColor="@color/lim_back"
@@ -25,10 +25,10 @@
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.055"
+                app:layout_constraintHorizontal_bias="0.056"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.183" />
+                app:layout_constraintVertical_bias="0.125" />
 
             <TextView
                 android:id="@+id/blood_level"
@@ -38,26 +38,43 @@
                 android:text="0.03%"
                 android:textColor="@color/lim_orange"
                 android:textSize="38dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.108"
+                app:layout_constraintHorizontal_bias="0.157"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.202" />
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <TextView
                 android:id="@+id/blood_punish_text"
-                android:layout_width="wrap_content"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamanco"
-                android:text="100일간 면허정지,\n1년 이하의 징역이나 500만 원 이하의 벌금"
+                android:text="면허 취소,\n2년 이상 5년 이하의 징역이나 100만원 이상 2000만원 이하의 벌금"
                 android:textColor="@color/lim_text_black"
                 android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@+id/blood_level"
+                app:layout_constraintVertical_bias="0.346" />
+
+            <Button
+                android:id="@+id/realtime_calorie_more_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@color/transparent"
+                android:fontFamily="@font/binggraesamancobold"
+                android:text="더 보기 >"
+                android:textColor="@color/lim_bgreen"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/blood_punish_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.611"
+                app:layout_constraintStart_toEndOf="@+id/blood_level"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.357" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

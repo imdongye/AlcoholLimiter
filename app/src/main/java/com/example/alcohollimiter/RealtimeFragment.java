@@ -252,7 +252,6 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
         percent = (a+(lt.bottleMl*(lt.abv/100)))/(mySojuCap*360*(17.5/100));
         TextView oneBotText = (TextView)rootView.findViewById(R.id.subdata_one_bottle_next_percent);
         oneBotText.setText((int)(100*percent)+" %");
-
     }
     @Override
     public void onClick(View v){
@@ -276,16 +275,14 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
             case R.id.realtime_stop_btn:{
                 rootView.findViewById(R.id.realtime_start_btn).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.realtime_starttime_edit_btn).setVisibility(View.GONE);
-
                 db = helper.getWritableDatabase();
-                helper.onUpgrade(db, 0, 0);
-                selectLiquor(0);
-                Toast.makeText(myContext, "술 종류 리스트가 초기화 됨", Toast.LENGTH_SHORT).show();
+                getLiquorTypeInDB();
+                totalMl = 0;
                 calculateBlood();
                 counterTask.setEnd();
             }break;
             case R.id.main_bottle_btn:{
-                // 한병의 주량 비교
+                // 한병의 주량 비교 다이얼로그 플레그먼트
                 BottleDataDialogFragment bddf = new BottleDataDialogFragment(
                         getCurLiquorData().bottleMl, getCurLiquorData().getOneBottleCapPercent());
                 bddf.show(getChildFragmentManager(), BottleDataDialogFragment.TAG_BOTTLEDATA_DIALOG);
@@ -300,7 +297,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
                 selectLiquor(2);
             }break;
             case R.id.select_more_btn:{
-
+                LiquorSelectDialogFragment dlsd = new LiquorSelectDialogFragment(liquorTypes);
+                dlsd.show(getChildFragmentManager(), LiquorSelectDialogFragment.TAG_LIQUOR_SELECT);
             }break;
             case R.id.main_drink_ml_edit_btn:{
                 getCurLiquorData().setDrinkMl(0);
