@@ -2,6 +2,7 @@ package com.example.alcohollimiter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -29,13 +30,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public void firstSetting(SQLiteDatabase db){
         Log.i("songjo", "set db first");
-        addLiquor(db,"소주", 17.8, 360, 50, 250);
+        addLiquor(db,"소주", 17.5, 360, 50, 370);
         addLiquor(db,"맥주", 4.5, 500, 50, 200);
         addLiquor(db,"막걸리", 5, 720, 50, 210);
         addLiquor(db,"와인", 12.5, 720, 50, 83);
         addLiquor(db,"보드카", 40, 500, 50, 90);
         addLiquor(db,"위스키", 39, 700, 50, 95);
-        addLiquor(db,"고량주", 50, 250, 50, 270);
+        addLiquor(db,"고량주", 50, 250, 50, 400);
         addLiquor(db,"1대3 소맥", 17.8, 360, 50, 200);
     }
     public void addLiquor(SQLiteDatabase db, String name, double abv, int botml, int janml, int kcal) {

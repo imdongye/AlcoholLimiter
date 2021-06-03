@@ -73,11 +73,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/roundedDashView" />
 
             <TextView
-                android:id="@+id/subdata_jantime_text"
+                android:id="@+id/subdata_last_drink_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamanco"
-                android:text="5분 20초"
+                android:text="0:0:0"
                 android:textColor="@color/lim_text_black"
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
@@ -96,7 +96,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subdata_jantime_text"
+                app:layout_constraintTop_toBottomOf="@+id/subdata_last_drink_time_text"
                 app:tint="@color/lim_gray" />
 
 
@@ -115,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/roundedDashView4" />
 
             <TextView
-                android:id="@+id/subdata_candrivetime2"
+                android:id="@+id/subdata_one_jan_next_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamanco"
@@ -139,7 +139,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subdata_candrivetime2"
+                app:layout_constraintTop_toBottomOf="@+id/subdata_one_jan_next_percent"
                 app:tint="@color/lim_gray" />
 
             <TextView
@@ -157,7 +157,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/roundedDashView2" />
 
             <TextView
-                android:id="@+id/subdata_candrivetime3"
+                android:id="@+id/subdata_one_bottle_next_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamanco"
@@ -177,7 +177,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subdata_candrivetime3" />
+                app:layout_constraintTop_toBottomOf="@+id/subdata_one_bottle_next_percent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

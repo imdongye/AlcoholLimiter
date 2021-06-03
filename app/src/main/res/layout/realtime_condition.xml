@@ -41,13 +41,13 @@
                 app:layout_constraintBottom_toBottomOf="@+id/realtime_alcohol_face"
                 app:layout_constraintEnd_toStartOf="@+id/realtime_alcohol_face"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/realtime_alcohol_level"
+                app:layout_constraintStart_toEndOf="@+id/realtime_alcohol_gauge"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
 
             <TextView
-                android:id="@+id/realtime_alcohol_level"
+                android:id="@+id/realtime_alcohol_gauge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binggraesamancobold"

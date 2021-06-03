@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     db = helper.getWritableDatabase();
                     helper.onUpgrade(db, 0, 0);
+                    realtimeFragment.selectLiquor(0);
                     Toast.makeText(this, "술 종류 리스트가 초기화 됨", Toast.LENGTH_SHORT).show();
                 } catch (SQLiteException e){
                 }
