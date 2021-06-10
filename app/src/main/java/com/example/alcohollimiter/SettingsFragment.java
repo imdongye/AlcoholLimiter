@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -38,10 +40,22 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         myContext = container.getContext();
+
         Spinner spinner = (Spinner) rootView.findViewById(R.id.settings_gender_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(myContext, android.R.layout.simple_spinner_item, gender_items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(), parent.getItemAtPosition(position).toString()+"선택",
+                        Toast.LENGTH_SHORT).show();
+                // 할것 설정
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         {
             SharedPreferences sharedPref = myContext.getSharedPreferences(SettingsFragment.PREFS_NAME, 0);

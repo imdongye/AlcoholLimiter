@@ -10,31 +10,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/select_dialog_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="돌아가기"
+            android:fontFamily="@font/binggraesamancobold"
+            android:textColor="@color/lim_bgreen_d"
+            android:background="@color/transparent"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <ImageView
             android:id="@+id/roundedDashView4"
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginTop="1dp"
             android:src="@drawable/bg_border_line"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/lim_gray" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/roundedDashView4">
-            <ListView
-                android:id="@+id/liquor_list_view"
+            app:layout_constraintTop_toBottomOf="@+id/select_dialog_back_btn"
+            app:tint="@color/lim_gray" />
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </androidx.core.widget.NestedScrollView>
+        <ListView
+            android:id="@+id/liquor_list_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="#00000000"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/select_dialog_create_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/roundedDashView4" />
+
+        <Button
+            android:id="@+id/select_dialog_create_btn"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/binggraesamancobold"
+            android:text="술 종류 추가
+"
+            android:textColor="@color/lim_bgreen_d"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
