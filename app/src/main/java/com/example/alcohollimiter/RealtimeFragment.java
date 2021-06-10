@@ -8,10 +8,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,6 +144,8 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
         lastDrinkTimeText = (TextView)rootView.findViewById(R.id.subdata_last_drink_time_text);
         elapsedView = rootView.findViewById(R.id.realtime_elapsed_view);
 
+        counterTask = new CounterTask();
+        counterTask.execute();
         startTimesetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -151,8 +155,7 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
                 counterTask.setStartTime(cal.getTimeInMillis());
             }
         };
-        counterTask = new CounterTask();
-        counterTask.execute();
+
 
         Log.i("songjo", "onCreate");
         return rootView;
@@ -263,7 +266,10 @@ public class RealtimeFragment extends Fragment implements View.OnClickListener, 
                 String getTime = sd.format(date);
                 int hh = Integer.parseInt(getTime.split(" ")[0]);
                 int mm = Integer.parseInt(getTime.split(" ")[1]);
-                TimePickerDialog dialog = new TimePickerDialog(myContext, AlertDialog.THEME_HOLO_LIGHT, startTimesetListener, hh, mm, false );
+
+                Context context = null;
+                // 갑자기 오류 발생: 테마 지원 버전 문제같음
+                TimePickerDialog dialog = new TimePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog, startTimesetListener, hh, mm, false );
                 dialog.setTitle("시작시간");
                 dialog.show();
             }break;
